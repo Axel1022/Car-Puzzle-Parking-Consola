@@ -7,7 +7,7 @@ import pygetwindow as gw
 
 """
 class TABLERO:
-    def __init__(self, nombre_txt="controlador.txt"):
+    def __init__(self, nombre_txt="./controlador.txt"):
         self.tablero = []
         self.vehiculo_jugador = None
         self.meta = None
