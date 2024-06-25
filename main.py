@@ -69,7 +69,7 @@ class Main:
                 print("Saliendo...")
                 break
 
-            filename = input("Introduce el nombre del archivo del tablero (ej. 'nivel.txt'): ").strip()
+            filename = input("Introduce el nombre del archivo del tablero (ej. 'nivel1'): ").strip() + '.txt'
             board = Main.load_board_from_file(filename)
             puzzle = ParkingPuzzle(board)
             meta = puzzle.goal_position
