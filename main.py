@@ -1,10 +1,8 @@
-import sys
 from collections import deque
 import heapq
 import os
 from Astar import Astar
 from Bfs import BFS
-from Vehiculo import Vehiculo
 from ParkingPuzzle import ParkingPuzzle
 
 class Main:
