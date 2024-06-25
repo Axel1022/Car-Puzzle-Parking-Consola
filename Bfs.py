@@ -8,7 +8,7 @@ from ParkingPuzzle import ParkingPuzzle
 
 class BFS:
 
-    def bfs(puzzle):
+    def bfs(puzzle,meta):
         """Algoritmo de búsqueda en anchura."""
         start_time = time.time()
         frontier = deque([puzzle])
@@ -20,7 +20,7 @@ class BFS:
             current_puzzle :ParkingPuzzle = frontier.popleft()
             nodes_expanded += 1
 
-            if current_puzzle.is_goal():
+            if current_puzzle.is_goal(meta):
                 return generate_output(current_puzzle, nodes_expanded, max_search_depth, start_time)
 
             explored.add(tuple(map(tuple, current_puzzle.board)))

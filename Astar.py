@@ -27,7 +27,7 @@ class Astar:
 
             explored.add(tuple(map(tuple, current_puzzle.board)))
 
-            for move in current_puzzle.get_possible_moves():
+            for move in current_puzzle.get_possible_moves(meta):
                 new_puzzle, response = current_puzzle.move_vehicle(move)
                 if response and tuple(map(tuple, new_puzzle.board)) not in explored:
                     cost = new_puzzle.profundidad + w1 * heuristic1(new_puzzle,meta) + w2 * heuristic2(new_puzzle) + w3 * heuristic3(new_puzzle,meta)

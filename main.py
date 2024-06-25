@@ -1,11 +1,9 @@
-import sys
 from collections import deque
 import heapq
 import os
 from Astar import Astar
 from Bfs import BFS
 
-from Vehiculo import Vehiculo
 from ParkingPuzzle import ParkingPuzzle
 
 class main:
@@ -58,7 +56,7 @@ peso1, peso2, peso3 = 1, 1, 1
 
 result = Astar.astar(puzzle, peso1, peso2, peso3,meta)
 
-# result = BFS.bfs(puzzle)
+# result = BFS.bfs(puzzle,meta)
 if result:
     print("Solución encontrada:")
     print(result)
