@@ -1,0 +1,7 @@
+. A G F F
+. A G R .
+. A . R .
+. . . I B
+. . . I B
+. . J J R
+. 0 T T R
