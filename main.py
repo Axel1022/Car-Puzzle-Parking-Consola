@@ -4,6 +4,7 @@ import os
 from Astar import Astar
 from Bfs import BFS
 from ParkingPuzzle import ParkingPuzzle
+import os.path
 
 class Main:
 
@@ -52,31 +53,73 @@ class Main:
     def main_menu():
         """Muestra el menú principal e interactúa con el usuario."""
         while True:
-            print("Seleccione una opción:")
-            print("1. Resolver con A*")
-            print("2. Resolver con BFS")
-            print("3. Jugar manualmente")
-            print("4. Salir")
-            choice = input("Opción: ").strip()
-
-            if choice not in ['1', '2', '3', '4']:
-                print("Opción inválida. Intenta de nuevo.")
-                continue
+            while True:
+                print("Seleccione una opción:")
+                print("1. Resolver con A*")
+                print("2. Resolver con BFS")
+                print("3. Jugar manualmente")
+                print("4. Salir")
+                choice = input("Opción: ").strip()
+                if choice not in ['1', '2', '3', '4']:
+                    os.system("cls")
+                    print("Opción inválida. Intenta de nuevo.")
+                else: break
 
             if choice == '4':
                 print("Saliendo...")
                 break
+            os.system("cls")
+            while True:
+                filename = input("Introduce el nombre del archivo del tablero (ej. 'nivel1'): ").strip() + '.txt'
+                if os.path.isfile(filename):
+                    break
+                else:
+                    os.system("cls")
+                    print(f"El archivo '{filename}' no existe. Inténtalo de nuevo.")
 
-            filename = input("Introduce el nombre del archivo del tablero (ej. 'nivel1'): ").strip() + '.txt'
             board = Main.load_board_from_file(filename)
             puzzle = ParkingPuzzle(board)
             meta = puzzle.goal_position
-
+            os.system('cls')
             if choice == '1':
-                print("Resolviendo con A*...")
-                peso1, peso2, peso3 = 1, 1, 1
-                result = Astar.astar(puzzle, peso1, peso2, peso3, meta)
-                Main.handle_result(result, "AstarResultbenchmark.txt")
+                while True:
+                    print("Seleccione la cantidad de heuristicas:")
+                    print("1. 1")
+                    print("2. 2")
+                    print("3. 3")
+                    print("4. 4")
+                    print("5. 5")
+                    choice = input("Opción: ").strip()
+                    if choice not in ['1', '2', '3', '4', '5']:
+                        os.system("cls")
+                        print("Opción inválida. Intenta de nuevo.")
+                    else:
+                        peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
+                        print("Resolviendo con A*...")
+                        if choice == "1":
+                            result = Astar.astar(puzzle,meta, peso1)
+                            Main.handle_result(result, "AstarResultbenchmark.txt")
+                            break
+                        elif choice == "2":
+                            result = Astar.astar(puzzle, meta, peso1, peso2)
+                            Main.handle_result(result, "AstarResultbenchmark.txt")
+                            break
+                        elif choice == "3":
+                            result = Astar.astar(puzzle,meta, peso1,peso2,peso3)
+                            Main.handle_result(result, "AstarResultbenchmark.txt")
+                            break
+                        elif choice == "4":
+                            result = Astar.astar(puzzle,meta, peso1,peso2,peso3,peso4)
+                            Main.handle_result(result, "AstarResultbenchmark.txt")
+                            break
+                        elif choice == "4":
+                            result = Astar.astar(puzzle,meta, peso1,peso2,peso3,peso4,peso5)
+                            Main.handle_result(result, "AstarResultbenchmark.txt")
+                            break
+                        else:
+                            break
+
+
             elif choice == '2':
                 print("Resolviendo con BFS...")
                 result = BFS.bfs(puzzle)
