@@ -79,7 +79,7 @@ class Main:
                 Main.handle_result(result, "AstarResultbenchmark.txt")
             elif choice == '2':
                 print("Resolviendo con BFS...")
-                result = BFS.bfs(puzzle)
+                result = BFS.bfs(puzzle,meta)
                 Main.handle_result(result, "BFSResultbenchmark.txt")
             elif choice == '3':
                 Main.game_loop(puzzle, meta)
@@ -101,3 +101,4 @@ class Main:
 
 if __name__ == "__main__":
     Main.main_menu()
+    

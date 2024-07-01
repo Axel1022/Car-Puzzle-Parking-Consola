@@ -1,0 +1,7 @@
+. . A F F
+. . A R .
+H H A R .
+. G G I .
+. B B I .
+. . T T R
+U U 0 . R

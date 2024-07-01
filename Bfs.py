@@ -7,8 +7,7 @@ import os
 from ParkingPuzzle import ParkingPuzzle
 
 class BFS:
-
-    def bfs(puzzle,meta):
+    def bfs(puzzle, meta):
         """Algoritmo de búsqueda en anchura."""
         start_time = time.time()
         frontier = deque([puzzle])
@@ -17,7 +16,7 @@ class BFS:
         max_search_depth = 0
 
         while frontier:
-            current_puzzle :ParkingPuzzle = frontier.popleft()
+            current_puzzle: ParkingPuzzle = frontier.popleft()
             nodes_expanded += 1
 
             if current_puzzle.is_goal(meta):
@@ -25,14 +24,14 @@ class BFS:
 
             explored.add(tuple(map(tuple, current_puzzle.board)))
 
-            for move in current_puzzle.get_possible_moves():
-                new_puzzle = current_puzzle.move_vehicle(move)
-                if tuple(map(tuple, new_puzzle.board)) not in explored:
+            for move in current_puzzle.get_possible_moves(meta):
+                new_puzzle, response = current_puzzle.move_vehicle(move)
+                if new_puzzle and tuple(map(tuple, new_puzzle.board)) not in explored:
                     frontier.append(new_puzzle)
                     max_search_depth = max(max_search_depth, new_puzzle.profundidad)
 
         return None
-    
+
 def generate_output(puzzle, nodes_expanded, max_search_depth, start_time):
     """Genera el output final del algoritmo."""
     elapsed_time = time.time() - start_time
@@ -45,5 +44,4 @@ def generate_output(puzzle, nodes_expanded, max_search_depth, start_time):
         'max_search_depth': max_search_depth,
         'running_time': elapsed_time,
         'max_ram_usage': memory_usage
-        }
-   
+    }

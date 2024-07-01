@@ -36,6 +36,66 @@ class Astar:
                     max_search_depth = max(max_search_depth, new_puzzle.profundidad)
         return None
 
+
+    def astar(puzzle, w1, w2, w3,w4,meta):
+        """Algoritmo A* con heurísticas combinadas."""
+        start_time = time.time()
+        initial_cost = w1 * heuristic1(puzzle,meta) + w2 * heuristic2(puzzle) + w3 * heuristic3(puzzle,meta)
+        frontier = []
+        counter = 0  # Contador para desempate
+        heapq.heappush(frontier, (initial_cost, counter, puzzle))
+        explored = set()
+        nodes_expanded = 0
+        max_search_depth = 0
+
+        while frontier:
+            _, _, current_puzzle = heapq.heappop(frontier)
+            nodes_expanded += 1
+
+            if current_puzzle.is_goal(meta):
+                return generate_output(current_puzzle, nodes_expanded, max_search_depth, start_time)
+
+            explored.add(tuple(map(tuple, current_puzzle.board)))
+
+            for move in current_puzzle.get_possible_moves(meta):
+                new_puzzle, response = current_puzzle.move_vehicle(move)
+                if response and tuple(map(tuple, new_puzzle.board)) not in explored:
+                    cost = new_puzzle.profundidad + w1 * heuristic1(new_puzzle,meta) + w2 * heuristic2(new_puzzle) + w3 * heuristic3(new_puzzle,meta)
+                    + w4 * heuristic4(new_puzzle,meta)
+                    counter += 1
+                    heapq.heappush(frontier, (cost, counter, new_puzzle))
+                    max_search_depth = max(max_search_depth, new_puzzle.profundidad)
+        return None
+    
+    def astar(puzzle, w1, w2, w3,w4,w5,meta):
+        """Algoritmo A* con heurísticas combinadas."""
+        start_time = time.time()
+        initial_cost = w1 * heuristic1(puzzle,meta) + w2 * heuristic2(puzzle) + w3 * heuristic3(puzzle,meta)
+        frontier = []
+        counter = 0  # Contador para desempate
+        heapq.heappush(frontier, (initial_cost, counter, puzzle))
+        explored = set()
+        nodes_expanded = 0
+        max_search_depth = 0
+
+        while frontier:
+            _, _, current_puzzle = heapq.heappop(frontier)
+            nodes_expanded += 1
+
+            if current_puzzle.is_goal(meta):
+                return generate_output(current_puzzle, nodes_expanded, max_search_depth, start_time)
+
+            explored.add(tuple(map(tuple, current_puzzle.board)))
+
+            for move in current_puzzle.get_possible_moves(meta):
+                new_puzzle, response = current_puzzle.move_vehicle(move)
+                if response and tuple(map(tuple, new_puzzle.board)) not in explored:
+                    cost = new_puzzle.profundidad + w1 * heuristic1(new_puzzle,meta) + w2 * heuristic2(new_puzzle) + w3 * heuristic3(new_puzzle,meta)
+                    + w4 * heuristic4(new_puzzle,meta)+ w5 * heuristic5(new_puzzle,meta)
+                    counter += 1
+                    heapq.heappush(frontier, (cost, counter, new_puzzle))
+                    max_search_depth = max(max_search_depth, new_puzzle.profundidad)
+        return None
 def heuristic1(puzzle,meta):
     """Ejemplo de heurística simple."""
     player_vehicle = puzzle.vehicles['A']
@@ -64,6 +124,37 @@ def heuristic3(puzzle,meta):
         else:
             distance_sum += abs(vehicle.fila - meta[0])
     return distance_sum
+
+def heuristic4(puzzle, previous_moves, current_move, meta):
+    """Heurística para evitar movimientos redundantes."""
+    player_vehicle = puzzle.vehicles['A']
+    player_positions = player_vehicle.get_positions()
+    goal_row, goal_col = meta
+    player_head_pos = player_positions[0]  # Posición inicial del vehículo del jugador
+
+    # Distancia Manhattan desde la cabeza del vehículo del jugador hasta la meta
+    dist_manhattan = abs(player_head_pos[0] - goal_row) + abs(player_head_pos[1] - goal_col)
+
+    # Penalización por movimientos redundantes
+    penalization_redundancy = 0
+    if len(previous_moves) > 0:
+        last_move = previous_moves[-1]
+        if (current_move[0] == last_move[0] and
+                ((current_move[1] == 'L' and last_move[1] == 'R') or
+                 (current_move[1] == 'R' and last_move[1] == 'L') or
+                 (current_move[1] == 'U' and last_move[1] == 'D') or
+                 (current_move[1] == 'D' and last_move[1] == 'U'))):
+            penalization_redundancy = 10  # Penalización alta para evitar movimientos redundantes
+
+    return dist_manhattan + penalization_redundancy
+
+def heuristic5(puzzle, meta):
+    """Penaliza cualquier estado donde un vehículo diferente a 'A' esté en la posición de la meta."""
+    for vehicle_id, vehicle in puzzle.vehicles.items():
+        if vehicle_id != 'A':
+            if meta in vehicle.get_positions():
+                return 1000  # Penalización alta para evitar que otros vehículos bloqueen la meta
+    return 0
 
 def generate_output(puzzle, nodes_expanded, max_search_depth, start_time):
     """Genera el output final del algoritmo."""
