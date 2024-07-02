@@ -1,7 +1,7 @@
 J J J . G . . . .
-. . . . G T T R .
-. . . . G . . R .
-A A A L . K . R 0
+. . . . G T T . .
+. . . . G . . . .
+A A A L . K B B 0
 . . . L . K . . .
 . Z Z Z . K . P P
 . . . S S . . . .

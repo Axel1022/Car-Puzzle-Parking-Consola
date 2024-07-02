@@ -98,8 +98,10 @@ class Main:
                         os.system("cls")
                         print("Opción inválida. Intenta de nuevo.")
                     else:
-                        peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
+                        # peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
                         # peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
+                        peso1, peso2, peso3, peso4, peso5 = 2, 2, 4, 2, 1
+
                         print("Resolviendo con A*...")
                         if choice == "1":
                             result = Astar.astar(puzzle,meta, peso1)

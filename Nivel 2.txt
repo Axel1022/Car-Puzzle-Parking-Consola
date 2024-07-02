@@ -1,5 +1,5 @@
-A  A  A  .  B  .  0
-C  C  .  .  B  D  D
-.  .  E  E  F  F  .
-G  G  .  H  H  I  I
-.  J  J  .  .  K  K
+A A A . M . 0
+C C . . M D D
+. . E E F F .
+G G . H H I I
+. J J . . K K
