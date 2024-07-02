@@ -32,6 +32,7 @@ class BFS:
 
         return None
 
+
 def generate_output(puzzle, nodes_expanded, max_search_depth, start_time):
     """Genera el output final del algoritmo."""
     elapsed_time = time.time() - start_time

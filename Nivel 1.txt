@@ -1,6 +1,6 @@
 . A G F F
-B A G . .
-B A R R .
+. A G . .
+. A R R .
 . P P I .
 . . . I .
 Y . T . .

@@ -9,13 +9,13 @@ from ParkingPuzzle import ParkingPuzzle
 class Astar:
 
     @staticmethod
-    def astar(puzzle,meta,*weights):
+    def astar(puzzle, meta, *weights):
         """Algoritmo A* con heurísticas combinadas."""
         start_time = time.time()
         heuristics = [heuristic1, heuristic2, heuristic3, heuristic4, heuristic5]
         weights = weights[:len(heuristics)]
 
-        initial_cost = sum(w * h(puzzle, meta) for w, h in zip(weights, heuristics))
+        initial_cost = sum(w * h(puzzle, meta, [], []) for w, h in zip(weights, heuristics))
         frontier = []
         counter = 0  # Contador para desempate
         heapq.heappush(frontier, (initial_cost, counter, puzzle, []))  # Añadimos lista de movimientos anteriores
@@ -36,20 +36,26 @@ class Astar:
                 new_puzzle, response = current_puzzle.move_vehicle(move)
                 if response and tuple(map(tuple, new_puzzle.board)) not in explored:
                     cost = (new_puzzle.profundidad +
-                            sum(w * h(new_puzzle, meta) for w, h in zip(weights, heuristics)))
+                            sum(w * h(new_puzzle, meta, previous_moves, move) for w, h in zip(weights, heuristics)))
                     counter += 1
                     heapq.heappush(frontier, (cost, counter, new_puzzle, previous_moves + [move]))
                     max_search_depth = max(max_search_depth, new_puzzle.profundidad)
 
         return None
 
-
-def heuristic1(puzzle, meta):
-    """Ejemplo de heurística simple."""
+def heuristic1(puzzle, meta, *args):
+    """Heurística que estima la menor cantidad de movimientos hasta la meta."""
     player_vehicle = puzzle.vehicles['A']
-    return abs(player_vehicle.fila - meta[0]) + abs(player_vehicle.col - meta[1])
 
-def heuristic2(puzzle, meta):
+    # Calcula la distancia horizontal o vertical desde el vehículo 'A' hasta la meta
+    if player_vehicle.orientacion == 'H':
+        dist_to_goal = abs(player_vehicle.col + player_vehicle.longitud - meta[1])
+    else:
+        dist_to_goal = abs(player_vehicle.fila + player_vehicle.longitud - meta[0])
+
+    return dist_to_goal
+
+def heuristic2(puzzle, *args):
     """Segunda heurística: número de vehículos bloqueando la salida."""
     blocking_vehicles = 0
     player_vehicle = puzzle.vehicles['A']
@@ -63,7 +69,7 @@ def heuristic2(puzzle, meta):
                 blocking_vehicles += 1
     return blocking_vehicles
 
-def heuristic3(puzzle, meta):
+def heuristic3(puzzle, meta, *args):
     """Tercera heurística: suma de distancias de todos los vehículos a sus posiciones objetivo."""
     distance_sum = 0
     for vehicle in puzzle.vehicles.values():
@@ -73,7 +79,7 @@ def heuristic3(puzzle, meta):
             distance_sum += abs(vehicle.fila - meta[0])
     return distance_sum
 
-def heuristic4(puzzle, previous_moves, current_move, meta):
+def heuristic4(puzzle, meta, previous_moves, current_move):
     """Heurística para evitar movimientos redundantes."""
     player_vehicle = puzzle.vehicles['A']
     player_positions = player_vehicle.get_positions()
@@ -96,7 +102,7 @@ def heuristic4(puzzle, previous_moves, current_move, meta):
 
     return dist_manhattan + penalization_redundancy
 
-def heuristic5(puzzle, meta):
+def heuristic5(puzzle, meta, *args):
     """Penaliza cualquier estado donde un vehículo diferente a 'A' esté en la posición de la meta."""
     for vehicle_id, vehicle in puzzle.vehicles.items():
         if vehicle_id != 'A':

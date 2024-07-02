@@ -96,7 +96,8 @@ class Main:
                         os.system("cls")
                         print("Opción inválida. Intenta de nuevo.")
                     else:
-                        peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
+                        peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
+                        # peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
                         print("Resolviendo con A*...")
                         if choice == "1":
                             result = Astar.astar(puzzle,meta, peso1)
@@ -119,7 +120,6 @@ class Main:
                             Main.handle_result(result, "AstarResultbenchmark.txt")
                             break
 
-
             elif choice == '2':
                 print("Resolviendo con BFS...")
                 result = BFS.bfs(puzzle, meta)
@@ -130,6 +130,7 @@ class Main:
                 Main.handle_result(result, "DFSResultbenchmark.txt")
             elif choice == '4':
                 Main.game_loop(puzzle, meta)
+
 
     @staticmethod
     def handle_result(result, filename):
