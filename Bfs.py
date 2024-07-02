@@ -1,15 +1,13 @@
-import sys
-from collections import deque
-import heapq
 import time
 import psutil
 import os
+from collections import deque
 from ParkingPuzzle import ParkingPuzzle
 
 class BFS:
-
-    def bfs(puzzle,meta):
-        """Algoritmo de búsqueda en anchura."""
+    @staticmethod
+    def bfs(puzzle, meta):
+        """Algoritmo de Búsqueda en Anchura (BFS)"""
         start_time = time.time()
         frontier = deque([puzzle])
         explored = set()
@@ -17,7 +15,7 @@ class BFS:
         max_search_depth = 0
 
         while frontier:
-            current_puzzle :ParkingPuzzle = frontier.popleft()
+            current_puzzle = frontier.popleft()
             nodes_expanded += 1
 
             if current_puzzle.is_goal(meta):
@@ -25,11 +23,12 @@ class BFS:
 
             explored.add(tuple(map(tuple, current_puzzle.board)))
 
-            for move in current_puzzle.get_possible_moves():
-                new_puzzle = current_puzzle.move_vehicle(move)
-                if tuple(map(tuple, new_puzzle.board)) not in explored:
+            for move in current_puzzle.get_possible_moves(current_puzzle.goal_position):
+                new_puzzle, response = current_puzzle.move_vehicle(move)
+                if response and tuple(map(tuple, new_puzzle.board)) not in explored:
                     frontier.append(new_puzzle)
                     max_search_depth = max(max_search_depth, new_puzzle.profundidad)
+                    explored.add(tuple(map(tuple, new_puzzle.board)))
 
         return None
 
@@ -45,4 +44,4 @@ def generate_output(puzzle, nodes_expanded, max_search_depth, start_time):
         'max_search_depth': max_search_depth,
         'running_time': elapsed_time,
         'max_ram_usage': memory_usage
-        }
+    }

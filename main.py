@@ -62,7 +62,7 @@ class Main:
                 print("4. Jugar manualmente")
                 print("5. Salir")
                 choice = input("Opción: ").strip()
-                if choice not in ['1', '2', '3', '4']:
+                if choice not in ['1', '2', '3', '4', '5']:
                     os.system("cls")
                     print("Opción inválida. Intenta de nuevo.")
                 else: break
@@ -114,24 +114,20 @@ class Main:
                             result = Astar.astar(puzzle,meta, peso1,peso2,peso3,peso4)
                             Main.handle_result(result, "AstarResultbenchmark.txt")
                             break
-                        elif choice == "4":
+                        elif choice == "5":
                             result = Astar.astar(puzzle,meta, peso1,peso2,peso3,peso4,peso5)
                             Main.handle_result(result, "AstarResultbenchmark.txt")
-                            break
-                        else:
                             break
 
 
             elif choice == '2':
                 print("Resolviendo con BFS...")
-                result = BFS.bfs(puzzle)
+                result = BFS.bfs(puzzle, meta)
                 Main.handle_result(result, "BFSResultbenchmark.txt")
             elif choice == '3':
                 print("Resolviendo con DFS...")
                 result = DFS.dfs(puzzle, meta)
                 Main.handle_result(result, "DFSResultbenchmark.txt")
-
-
             elif choice == '4':
                 Main.game_loop(puzzle, meta)
 
