@@ -7,8 +7,6 @@ class ParkingPuzzle:
         print("Tablero cargado:")
         self.print_board()
         self.goal_position = self.find_goal_position()
-     #   if self.goal_position is None:
-       #     raise ValueError("No se encontró una posición objetivo en el tablero.")
         self.path = []
         self.profundidad = 0
 
@@ -123,8 +121,12 @@ class ParkingPuzzle:
 
     def move_vehicle(self, move):
         """Mueve un vehículo en el tablero y devuelve un nuevo estado del puzzle."""
+        vehicle_id = move[0]
+        if vehicle_id == 'B':
+            return None, False  # No se puede mover el obstáculo 'B'
+
         new_board = [fila[:] for fila in self.board]
-        vehicle = self.vehicles[move[0]]
+        vehicle = self.vehicles[vehicle_id]
         direction = move[1]
 
         response = True
@@ -133,7 +135,12 @@ class ParkingPuzzle:
 
         if direction == 'L':
             if vehicle.orientacion == 'H':
-                if vehicle.col > 0 and (new_board[vehicle.fila][vehicle.col - 1] == '.' or new_board[vehicle.fila][vehicle.col - 1] == '0'):
+                if vehicle.id == 'A' and vehicle.col > 0 and (new_board[vehicle.fila][vehicle.col - 1] == '.' or new_board[vehicle.fila][vehicle.col - 1] == '0'):
+                    for pos in positions:
+                        new_board[pos[0]][pos[1] - 1] = vehicle.id
+                    new_board[positions[-1][0]][positions[-1][1]] = '.'
+                    vehicle.col -= 1
+                elif vehicle.id != 'A' and vehicle.col > 0 and new_board[vehicle.fila][vehicle.col - 1] == '.':
                     for pos in positions:
                         new_board[pos[0]][pos[1] - 1] = vehicle.id
                     new_board[positions[-1][0]][positions[-1][1]] = '.'
@@ -143,7 +150,12 @@ class ParkingPuzzle:
 
         elif direction == 'R':
             if vehicle.orientacion == 'H':
-                if vehicle.col + vehicle.longitud < len(new_board[0]) and (new_board[vehicle.fila][vehicle.col + vehicle.longitud] == '.' or new_board[vehicle.fila][vehicle.col + vehicle.longitud] == '0'):
+                if vehicle.id == 'A' and vehicle.col + vehicle.longitud < len(new_board[0]) and (new_board[vehicle.fila][vehicle.col + vehicle.longitud] == '.' or new_board[vehicle.fila][vehicle.col + vehicle.longitud] == '0'):
+                    for pos in reversed(positions):
+                        new_board[pos[0]][pos[1] + 1] = vehicle.id
+                    new_board[positions[0][0]][positions[0][1]] = '.'
+                    vehicle.col += 1
+                elif vehicle.id != 'A' and vehicle.col + vehicle.longitud < len(new_board[0]) and new_board[vehicle.fila][vehicle.col + vehicle.longitud] == '.':
                     for pos in reversed(positions):
                         new_board[pos[0]][pos[1] + 1] = vehicle.id
                     new_board[positions[0][0]][positions[0][1]] = '.'
@@ -153,7 +165,12 @@ class ParkingPuzzle:
 
         elif direction == 'U':
             if vehicle.orientacion == 'V':
-                if vehicle.fila > 0 and (new_board[vehicle.fila - 1][vehicle.col] == '.' or new_board[vehicle.fila - 1][vehicle.col] == '0'):
+                if vehicle.id == 'A' and vehicle.fila > 0 and (new_board[vehicle.fila - 1][vehicle.col] == '.' or new_board[vehicle.fila - 1][vehicle.col] == '0'):
+                    for pos in positions:
+                        new_board[pos[0] - 1][pos[1]] = vehicle.id
+                    new_board[positions[-1][0]][positions[-1][1]] = '.'
+                    vehicle.fila -= 1
+                elif vehicle.id != 'A' and vehicle.fila > 0 and new_board[vehicle.fila - 1][vehicle.col] == '.':
                     for pos in positions:
                         new_board[pos[0] - 1][pos[1]] = vehicle.id
                     new_board[positions[-1][0]][positions[-1][1]] = '.'
@@ -163,7 +180,12 @@ class ParkingPuzzle:
 
         elif direction == 'D':
             if vehicle.orientacion == 'V':
-                if vehicle.fila + vehicle.longitud < len(new_board) and (new_board[vehicle.fila + vehicle.longitud][vehicle.col] == '.' or new_board[vehicle.fila + vehicle.longitud][vehicle.col] == '0'):
+                if vehicle.id == 'A' and vehicle.fila + vehicle.longitud < len(new_board) and (new_board[vehicle.fila + vehicle.longitud][vehicle.col] == '.' or new_board[vehicle.fila + vehicle.longitud][vehicle.col] == '0'):
+                    for pos in reversed(positions):
+                        new_board[pos[0] + 1][pos[1]] = vehicle.id
+                    new_board[positions[0][0]][positions[0][1]] = '.'
+                    vehicle.fila += 1
+                elif vehicle.id != 'A' and vehicle.fila + vehicle.longitud < len(new_board) and new_board[vehicle.fila + vehicle.longitud][vehicle.col] == '.':
                     for pos in reversed(positions):
                         new_board[pos[0] + 1][pos[1]] = vehicle.id
                     new_board[positions[0][0]][positions[0][1]] = '.'
