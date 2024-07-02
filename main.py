@@ -5,7 +5,6 @@ from Astar import Astar
 from Bfs import BFS
 from Dfs import DFS
 from ParkingPuzzle import ParkingPuzzle
-
 import os.path
 
 class Main:
@@ -63,7 +62,7 @@ class Main:
                 print("4. Jugar manualmente")
                 print("5. Salir")
                 choice = input("Opción: ").strip()
-                if choice not in ['1', '2', '3', '4','5']:
+                if choice not in ['1', '2', '3', '4', '5']:
                     os.system("cls")
                     print("Opción inválida. Intenta de nuevo.")
                 else: break
@@ -85,6 +84,18 @@ class Main:
             meta = puzzle.goal_position
             os.system('cls')
             if choice == '1':
+                print("Seleccione la configuracion de las heuristicas:")
+                print("1. Pesos estables (1)")
+                print("2. Pesos desvalanceado ( + - )")
+                print("3. Pesos muerto ☠️")
+                choice = input("Opción: ").strip()
+                if choice == "1":
+                    peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
+                elif choice == "2":
+                    peso1, peso2, peso3, peso4, peso5 = 2, 2, 4, 2, 1
+                else:
+                    peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
+                os.system('cls')
                 while True:
                     print("Seleccione la cantidad de heuristicas:")
                     print("1. 1")
@@ -97,10 +108,6 @@ class Main:
                         os.system("cls")
                         print("Opción inválida. Intenta de nuevo.")
                     else:
-                        peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
-                        # peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
-                        # peso1, peso2, peso3, peso4, peso5 = 2, 2, 4, 2, 1
-
                         print("Resolviendo con A*...")
                         if choice == "1":
                             result = Astar.astar(puzzle,meta, peso1)
@@ -122,22 +129,18 @@ class Main:
                             result = Astar.astar(puzzle,meta, peso1,peso2,peso3,peso4,peso5)
                             Main.handle_result(result, "AstarResultbenchmark.txt")
                             break
-                        else:
-                            break
 
             elif choice == '2':
                 print("Resolviendo con BFS...")
-                result = BFS.bfs(puzzle,meta)
+                result = BFS.bfs(puzzle, meta)
                 Main.handle_result(result, "BFSResultbenchmark.txt")
             elif choice == '3':
                 print("Resolviendo con DFS...")
                 result = DFS.dfs(puzzle, meta)
                 Main.handle_result(result, "DFSResultbenchmark.txt")
-
-
             elif choice == '4':
                 Main.game_loop(puzzle, meta)
-                
+
 
     @staticmethod
     def handle_result(result, filename):

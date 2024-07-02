@@ -1,9 +1,9 @@
 J J J . G . . . .
-. . . . G T T R .
-. . . . G . . R .
-A A A L . K . R 0
-. . . L . K . . .
+. . . L G T T . .
+. . . L G . C . .
+A A A L . K C . 0
+. . . B . K C . .
 . Z Z Z . K . P P
-. . . S S . . . .
-. I I . . F F . Y
-. . . O O . . . Y
+. . . . B S S Y .
+. I I . . F F Y .
+. . . O O . . . .
