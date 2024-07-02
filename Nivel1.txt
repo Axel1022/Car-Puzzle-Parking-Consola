@@ -1,7 +1,7 @@
-.  A  G  F  F
-B  A  G  .  .
-B  A  R  R  .
-.  P  P  I  .
-.  .  .  I  .
-Y  .  T  .  .
-Y  0  T  Z  Z
+. A G F F
+B A G . .
+B A R R .
+. P P I .
+. . . I .
+Y . T . .
+Y 0 T Z Z

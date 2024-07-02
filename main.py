@@ -3,6 +3,7 @@ import heapq
 import os
 from Astar import Astar
 from Bfs import BFS
+from Dfs import DFS
 from ParkingPuzzle import ParkingPuzzle
 import os.path
 
@@ -57,15 +58,16 @@ class Main:
                 print("Seleccione una opción:")
                 print("1. Resolver con A*")
                 print("2. Resolver con BFS")
-                print("3. Jugar manualmente")
-                print("4. Salir")
+                print("3. Resolver con DFS")
+                print("4. Jugar manualmente")
+                print("5. Salir")
                 choice = input("Opción: ").strip()
                 if choice not in ['1', '2', '3', '4']:
                     os.system("cls")
                     print("Opción inválida. Intenta de nuevo.")
                 else: break
 
-            if choice == '4':
+            if choice == '5':
                 print("Saliendo...")
                 break
             os.system("cls")
@@ -125,6 +127,12 @@ class Main:
                 result = BFS.bfs(puzzle)
                 Main.handle_result(result, "BFSResultbenchmark.txt")
             elif choice == '3':
+                print("Resolviendo con DFS...")
+                result = DFS.dfs(puzzle, meta)
+                Main.handle_result(result, "DFSResultbenchmark.txt")
+
+
+            elif choice == '4':
                 Main.game_loop(puzzle, meta)
 
     @staticmethod
