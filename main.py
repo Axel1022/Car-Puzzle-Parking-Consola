@@ -3,6 +3,7 @@ import heapq
 import os
 from Astar import Astar
 from Bfs import BFS
+from Dfs import DFS
 from ParkingPuzzle import ParkingPuzzle
 from Pesos import Pesos
 
@@ -59,15 +60,16 @@ class Main:
                 print("Seleccione una opción:")
                 print("1. Resolver con A*")
                 print("2. Resolver con BFS")
-                print("3. Jugar manualmente")
-                print("4. Salir")
+                print("3. Resolver con DFS")
+                print("4. Jugar manualmente")
+                print("5. Salir")
                 choice = input("Opción: ").strip()
-                if choice not in ['1', '2', '3', '4']:
+                if choice not in ['1', '2', '3', '4','5']:
                     os.system("cls")
                     print("Opción inválida. Intenta de nuevo.")
                 else: break
 
-            if choice == '4':
+            if choice == '5':
                 print("Saliendo...")
                 break
             os.system("cls")
@@ -96,8 +98,8 @@ class Main:
                         os.system("cls")
                         print("Opción inválida. Intenta de nuevo.")
                     else:
-                        # peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
-                        peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
+                        peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
+                        # peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
                         print("Resolviendo con A*...")
                         if choice == "1":
                             result = Astar.astar(puzzle,meta, peso1)
@@ -122,13 +124,19 @@ class Main:
                         else:
                             break
 
-
             elif choice == '2':
                 print("Resolviendo con BFS...")
                 result = BFS.bfs(puzzle,meta)
                 Main.handle_result(result, "BFSResultbenchmark.txt")
             elif choice == '3':
+                print("Resolviendo con DFS...")
+                result = DFS.dfs(puzzle, meta)
+                Main.handle_result(result, "DFSResultbenchmark.txt")
+
+
+            elif choice == '4':
                 Main.game_loop(puzzle, meta)
+                
 
     @staticmethod
     def handle_result(result, filename):
