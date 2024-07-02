@@ -1,8 +1,8 @@
 Ultima corrida:
-path_to_goal: [('J', 'R'), ('Y', 'U'), ('Y', 'U'), ('Y', 'U'), ('L', 'U'), ('L', 'U'), ('A', 'R'), ('A', 'R'), ('A', 'R'), ('A', 'R'), ('A', 'R'), ('A', 'R')]
-cost_of_path: 12
-nodes_expanded: 20
-search_depth: 12
-max_search_depth: 12
-running_time: 2.7563 
-max_ram_usage: 10.8164 
+path_to_goal: [('I', 'D'), ('Y', 'U'), ('Y', 'U'), ('P', 'R'), ('A', 'D'), ('A', 'D'), ('A', 'D'), ('A', 'D')]
+cost_of_path: 8
+nodes_expanded: 52
+search_depth: 8
+max_search_depth: 8
+running_time: 0.8148 
+max_ram_usage: 17.7773 

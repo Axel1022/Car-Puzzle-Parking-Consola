@@ -84,6 +84,18 @@ class Main:
             meta = puzzle.goal_position
             os.system('cls')
             if choice == '1':
+                print("Seleccione la configuracion de las heuristicas:")
+                print("1. Pesos estables (1)")
+                print("2. Pesos desvalanceado ( + - )")
+                print("3. Pesos muerto ☠️")
+                choice = input("Opción: ").strip()
+                if choice == "1":
+                    peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
+                elif choice == "1":
+                    peso1, peso2, peso3, peso4, peso5 = 2, 2, 4, 2, 1
+                else:
+                    peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
+                os.system('cls')
                 while True:
                     print("Seleccione la cantidad de heuristicas:")
                     print("1. 1")
@@ -96,8 +108,6 @@ class Main:
                         os.system("cls")
                         print("Opción inválida. Intenta de nuevo.")
                     else:
-                        peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
-                        # peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
                         print("Resolviendo con A*...")
                         if choice == "1":
                             result = Astar.astar(puzzle,meta, peso1)
