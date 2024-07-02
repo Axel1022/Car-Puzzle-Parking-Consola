@@ -55,7 +55,7 @@ class ParkingPuzzle:
                 return True
         return False
 
-    def get_possible_moves(self,meta):
+    def get_possible_moves(self, meta):
         """Obtiene todos los movimientos posibles para todos los vehículos, priorizando los movimientos del vehículo del jugador."""
         moves = []
         player_vehicle_id = 'A'
@@ -63,20 +63,16 @@ class ParkingPuzzle:
 
         # Obtener movimientos del vehículo del jugador primero
         if player_vehicle.orientacion == 'H':
-
             if player_vehicle.col < meta[1]:
                 if player_vehicle.col + player_vehicle.longitud < len(self.board[0]) and (self.board[player_vehicle.fila][player_vehicle.col + player_vehicle.longitud] == '.' or self.board[player_vehicle.fila][player_vehicle.col + player_vehicle.longitud] == '0'):
                     moves.append((player_vehicle_id, 'R'))
-
             elif player_vehicle.col > meta[1]:
                 if player_vehicle.col > 0 and (self.board[player_vehicle.fila][player_vehicle.col - 1] == '.' or self.board[player_vehicle.fila][player_vehicle.col - 1] == '0'):
                     moves.append((player_vehicle_id, 'L'))
         else:
-
             if player_vehicle.fila < meta[0]:
                 if player_vehicle.fila + player_vehicle.longitud < len(self.board) and (self.board[player_vehicle.fila + player_vehicle.longitud][player_vehicle.col] == '.' or self.board[player_vehicle.fila + player_vehicle.longitud][player_vehicle.col] == '0'):
                     moves.append((player_vehicle_id, 'D'))
-
             elif player_vehicle.fila > meta[0]:
                 if player_vehicle.fila > 0 and (self.board[player_vehicle.fila - 1][player_vehicle.col] == '.' or self.board[player_vehicle.fila - 1][player_vehicle.col] == '0'):
                     moves.append((player_vehicle_id, 'U'))
