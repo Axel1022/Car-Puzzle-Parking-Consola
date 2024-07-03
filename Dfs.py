@@ -5,9 +5,7 @@ from collections import deque
 from ParkingPuzzle import ParkingPuzzle
 
 class DFS:
-    @staticmethod
     def dfs(puzzle, meta):
-        """Algoritmo de Búsqueda en Profundidad (DFS)"""
         start_time = time.time()
         frontier = deque([puzzle])
         explored = set()

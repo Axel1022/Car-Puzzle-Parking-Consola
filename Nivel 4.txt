@@ -2,6 +2,6 @@
 . . A R .
 H H A R .
 . G G I .
-. B B I .
+B . . I B
 . . T T R
 U U 0 . R

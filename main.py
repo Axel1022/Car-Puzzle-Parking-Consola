@@ -91,7 +91,7 @@ class Main:
                 choice = input("Opción: ").strip()
                 if choice == "1":
                     peso1, peso2, peso3, peso4, peso5 = 1, 1, 1, 1, 1
-                elif choice == "1":
+                elif choice == "2":
                     peso1, peso2, peso3, peso4, peso5 = 2, 2, 4, 2, 1
                 else:
                     peso1, peso2, peso3, peso4, peso5 = 3, 3.5, 2, 2, 2
